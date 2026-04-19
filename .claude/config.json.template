@@ -1,0 +1,24 @@
+{
+  "_NOTE": "Template only. Copy to ~/.claude/config.json (Windows: %USERPROFILE%\\.claude\\config.json) and fill in the <YOUR_*> placeholders. Never commit real secrets.",
+
+  "mcpServers": {
+    "search-console": {
+      "_DESC": "Google Search Console + Bing Webmaster Tools MCP. First run prompts OAuth flow — credentials saved to ~/.credentials.json.",
+      "command": "npx",
+      "args": ["-y", "search-console-mcp"]
+    },
+
+    "n8n-mcp": {
+      "_DESC": "n8n workflow automation MCP. Requires a running n8n instance reachable from this machine (local, docker, ngrok, etc). Clone https://github.com/czlonkowski/n8n-mcp, build it, then point `args[0]` at the built entry file.",
+      "command": "node",
+      "args": ["<YOUR_N8N_MCP_DIST_PATH>"],
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "<YOUR_N8N_API_URL>",
+        "N8N_API_KEY": "<YOUR_N8N_API_KEY>"
+      }
+    }
+  }
+}

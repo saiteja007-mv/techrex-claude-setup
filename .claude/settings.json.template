@@ -1,0 +1,61 @@
+{
+  "_NOTE": "Template only. Copy to ~/.claude/settings.json (Windows: %USERPROFILE%\\.claude\\settings.json) and merge with your existing file if one already exists. Do NOT clobber keys you do not recognize.",
+
+  "permissions": {
+    "allow": [
+      "Bash(codeagent-wrapper*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+
+  "enabledPlugins": {
+    "document-skills@ando-marketplace": true,
+    "frontend-design@claude-plugins-official": true,
+    "n8n-mcp-skills@n8n-mcp-skills": true,
+    "apify-ultimate-scraper@apify-agent-skills": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "hugging-face-cli@huggingface-skills": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "marketing-skills@marketingskills": true,
+    "codex@openai-codex": true,
+    "claude-mem@thedotmack": true
+  },
+
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    }
+  },
+
+  "autoUpdatesChannel": "latest",
+  "skipDangerousModePermissionPrompt": true,
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f graphify-out/graph.json ] && echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.\"}}' || true"
+          }
+        ]
+      }
+    ]
+  }
+}

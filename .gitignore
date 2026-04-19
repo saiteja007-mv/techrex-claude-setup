@@ -1,0 +1,27 @@
+# Never commit secrets — templates only live in this repo
+.claude/settings.json
+.claude/config.json
+.claude/.credentials.json
+.claude/shell-snapshots/
+.claude/todos/
+.claude/projects/
+.claude/statsig/
+.claude/ide/
+.claude/.plugin-state.json
+.claude/conversations/
+.claude/memory/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node (if installers add one)
+node_modules/
+npm-debug.log*
