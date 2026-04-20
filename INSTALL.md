@@ -113,6 +113,7 @@ too — it'll prompt for Google OAuth on first use.
 Open a Claude Code session and run each of these:
 
 ```
+/plugin install superpowers@claude-plugins-official
 /plugin install document-skills@ando-marketplace
 /plugin install frontend-design@claude-plugins-official
 /plugin install n8n-mcp-skills@n8n-mcp-skills
@@ -124,6 +125,9 @@ Open a Claude Code session and run each of these:
 /plugin install codex@openai-codex
 /plugin install claude-mem@thedotmack
 ```
+
+Optional (register their marketplace first, or skip): `browser-use`,
+`career-ops`, standalone `seo` plugin.
 
 ## 8. (Optional) statusline
 
@@ -138,14 +142,14 @@ so no extra config needed.
 ## 9. Verify
 
 ```bash
-ls ~/.claude/skills   | wc -l    # >= 18
-find ~/.claude/agents   -name '*.md' | wc -l   # >= 10
-find ~/.claude/commands -name '*.md' | wc -l   # >= 57
+ls ~/.claude/skills   | wc -l    # >= 17
+find ~/.claude/agents   -name '*.md' | wc -l   # >= 6
+find ~/.claude/commands -name '*.md' | wc -l   # >= 29
 grep -c "Caveman Mode" ~/.claude/CLAUDE.md      # >= 1
 ```
 
 Open a fresh terminal and run `claude`. Type `/plugin` — you should see
-10 plugins listed.
+11 plugins listed.
 
 ## Removing the bundle later
 

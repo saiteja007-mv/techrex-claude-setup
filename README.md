@@ -4,15 +4,15 @@
 > [agent prompt](./AGENT_PROMPT.md) to any coding agent (Claude Code,
 > Cursor, Codex) and it installs everything onto your machine.
 
-8 months of daily use of Claude Code condensed into one repo:
+Daily-driven Claude Code configuration condensed into one repo:
 
 | Category       | Count | What it is                                              |
 |----------------|-------|---------------------------------------------------------|
-| Global rules   | 3     | `CLAUDE.md` (Caveman + RTK + graphify) + 2 rules files  |
-| Plugins        | 10    | Marketplace plugins, installed via `/plugin install`    |
-| Custom skills  | 18    | `~/.claude/skills/` — autoresearch, graphify, ccg, …    |
-| Agents         | 10    | Specialist sub-agents (blog writer, QA, fullstack, …)   |
-| Slash commands | 57    | `ccg/*` (28), `gsd/*` (26), `vibe-*` (3)                |
+| Global rules   | 1     | `CLAUDE.md` (Caveman + RTK + graphify)                  |
+| Plugins        | 11    | Marketplace plugins, installed via `/plugin install`    |
+| Custom skills  | 17    | `~/.claude/skills/` — autoresearch, graphify, …         |
+| Agents         | 6     | Specialist sub-agents (blog writer, QA, fullstack, …)   |
+| Slash commands | 29    | `gsd/*` (26), `vibe-*` (3)                              |
 | Hooks          | 1     | PreToolUse Glob\|Grep → graphify reminder               |
 | MCP server stubs | 2   | `search-console` + `n8n-mcp` templates (no secrets)     |
 | Statusline     | —     | ccstatusline launcher scripts                           |
@@ -52,31 +52,30 @@ Global instructions loaded by Claude Code in every session. Three sections:
 - **graphify reference** — pointer to the knowledge-graph skill.
 
 ### `.claude/rules/`
-- `ccg-fast-context.md` — when to use `mcp__fast-context__fast_context_search` vs Grep / Read / Glob.
-- `ccg-skills.md` — auto-trigger rules for CCG quality-gate skills.
+Reserved for project-specific rules you add later. The previous
+`ccg-*.md` rules were removed along with the CCG skill — the
+`superpowers` plugin now provides TDD / debugging / verification
+discipline, so dedicated CCG rules were redundant.
 
-### `.claude/skills/` (18)
-`autoresearch` · `caveman` · `ccg` · `data-analyst` · `data-storytelling`
+### `.claude/skills/` (17)
+`autoresearch` · `caveman` · `data-analyst` · `data-storytelling`
 · `design-system` · `exploratory-data-analysis` · `gmaps-scraper` ·
 `graphify` · `kpi-dashboard-design` · `linkedin-profile-search` ·
 `prompt-refine` · `seedance` · `senior-data-scientist` ·
 `skill-development` · `social-media` · `sql-optimization-patterns` ·
 `youtube-content-generator`
 
-### `.claude/agents/` (10)
+### `.claude/agents/` (6)
 Root specialist agents — `blog-writer-expert`, `comprehensive-qa-tester`,
 `fullstack-expert`, `system-troubleshooter`, `ui-ux-design-expert`,
 `youtube-content-strategist`.
-CCG workflow agents (`agents/ccg/`) — `get-current-datetime`,
-`init-architect`, `planner`, `ui-ux-designer`.
 
-### `.claude/commands/` (57)
-- `ccg/*` — 28 commands for the CCG workflow (plan, verify, doc-sync, orchestrate).
+### `.claude/commands/` (29)
 - `gsd/*` — 26 commands for the GSD / "Get Shit Done" workflow.
 - `vibe-*` — 3 free-form vibe commands.
 
 ### `.claude/settings.json.template`
-Merge this into your `~/.claude/settings.json`. Enables 10 plugins, wires
+Merge this into your `~/.claude/settings.json`. Enables 11 plugins, wires
 the graphify PreToolUse hook, sets `acceptEdits` as the default permission
 mode, and points `statusLine` at `ccstatusline`.
 
@@ -91,10 +90,11 @@ Optional — opt in via the agent prompt or copy manually.
 
 ---
 
-## Plugins installed (10)
+## Plugins installed (11)
 
 | Slug | Marketplace | Purpose |
 |---|---|---|
+| `superpowers` | `claude-plugins-official` | TDD, debugging, process-discipline skills |
 | `document-skills` | `ando-marketplace` | PDF, DOCX, XLSX skills |
 | `frontend-design` | `claude-plugins-official` | Design-system helpers |
 | `n8n-mcp-skills` | `n8n-mcp-skills` | n8n workflow skills |
@@ -102,9 +102,14 @@ Optional — opt in via the agent prompt or copy manually.
 | `rust-analyzer-lsp` | `claude-plugins-official` | Rust LSP integration |
 | `hugging-face-cli` | `huggingface-skills` | HF model/dataset ops |
 | `ui-ux-pro-max` | `ui-ux-pro-max-skill` | UI/UX design skills |
-| `marketing-skills` | `marketingskills` | Marketing content |
+| `marketing-skills` | `marketingskills` | Marketing + SEO content |
 | `codex` | `openai-codex` | OpenAI Codex integration |
 | `claude-mem` | `thedotmack` | Persistent memory |
+
+**Optional plugins** (not pre-wired — install manually if you have their
+marketplace registered): `browser-use` (web automation), `career-ops`,
+standalone `seo` plugin. These are listed as TODOs by the agent prompt
+so you can add them yourself with `/plugin install <name>@<marketplace>`.
 
 ---
 
@@ -116,7 +121,7 @@ Optional — opt in via the agent prompt or copy manually.
 - **Non-destructive install.** The agent prompt + manual install both
   back up `~/.claude` first and use copy-if-not-exists semantics. Your
   existing skills/agents/commands are never overwritten.
-- **Plugins are user-space.** All 10 are public marketplace plugins;
+- **Plugins are user-space.** All 11 are public marketplace plugins;
   `/plugin uninstall <slug>` removes any of them cleanly.
 - **Open source.** MIT-licensed. Fork it, cut what you don't like, add
   what you do.
